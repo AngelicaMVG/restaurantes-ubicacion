@@ -1,0 +1,17 @@
+.nav-black {
+  background-color: #000;
+  color: #fff;
+  height: 15%;
+  font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+
+#map {
+  height: 400px;
+  margin-top: 5%;
+  margin-bottom: 3%;
+}
+
+.nav-busqueda {
+  width: 50%;
+  margin-left: 25%;
+}
