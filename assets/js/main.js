@@ -99,7 +99,11 @@ var filtrarRestaurante = function(e) {
   var restaurantesFiltrados = restaurantes.filter(function(restaurante) {
     return restaurante.nombre.toLowerCase().indexOf(criterioBusqueda) >= 0;
   });
+  var restaurantesFiltradosComida = restaurantes.filter(function(restaurante) {
+    return restaurante.comida.toLowerCase().indexOf(criterioBusqueda) >= 0;
+  });
   mostrarRestaurante(restaurantesFiltrados);
+  mostrarRestaurante(restaurantesFiltradosComida);
 };
 
 var mostrarRestaurante = function(restaurantes) {
