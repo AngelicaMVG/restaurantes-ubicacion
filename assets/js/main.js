@@ -45,7 +45,7 @@ var restaurantes= [
     "comida": "Japonesa",
     "foto": "https://igx.4sqi.net/img/general/200x200/25404241_8PNmeduOkJ7QojQUpsCTCaTOP0q--87Ef7XjhpxzxHQ.jpg",
     "direccion": "Calle Tamaulipas 103, Cuauhtémoc, Hipódromo, 06140 Ciudad de México, CDMX",
-    "coordenadas": {"lat": "19.4094816", "lng": "-99.1750028"}
+    "coordenadas": {"lat": "19.410773", "lng": "-99.174971"}
   },
   {
     "nombre": "Fishers",
@@ -92,7 +92,9 @@ var plantillaRestaurante = '<article class="row restaurante">' +
   '<span>' +
   'Direccion:__direccion__' + '</span>' + '</br>'
 	+ '<div class="col s2">' +
-	'<button type="button" class=" btn-ubicacion btn btn-primary btn-medium" data-latitud="__latitud__" data-longitud="__longitud__">Ubicacion</button>' +
+	'<button type="button" class="btn-plantilla" data-latitud="__latitud__" data-longitud="__longitud__">'+
+  '<i class="material-icons">place</i>' +
+	'</button>' +
 	'</div>' +
   '</div>' +
   '</div>' +
@@ -102,7 +104,8 @@ var plantillaRestaurante = '<article class="row restaurante">' +
 var cargarPagina = function() {
   $("#search-form").submit(filtrarRestaurante);
   obtenerUbicacion();
-	$(document).on("click", ".btn-ubicacion", ubicacion);
+	$(document).on("click",".btn-ubicacion", ubicacion);
+	$(document).on("click",".btn-plantilla", ubicacion);
 };
 
 var filtrarRestaurante = function(e) {

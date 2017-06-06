@@ -1,7 +1,11 @@
-.nav-black {
-  background-color: #000;
+body {
+  font-family: Roboto;
+}
+.nav-green {
+  background-color: #43a047 ;
   color: #fff;
   height: 15%;
+  width: 100%;
 }
 
 #map {
@@ -15,8 +19,8 @@
   margin-left: 25%;
 }
 
-.nav-green{
-  background-color: rgba(195, 75, 20, 0.66);
+.nav-blue{
+  background-color: #9fa8da ;
 }
 
 .color-white {
@@ -27,7 +31,42 @@
   width: 80%;
 }
 
-@media only screen and (max-width:680px){
+.btn-ubicacion {
+  background-color: #4DB6AC;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  width: 50%;
+  height: 50%;
+  font-size: 1vw;
+  padding-top: 5%;
+}
 
-  
+.btn-ubicacion:hover{
+  background-color: #26c6da;
+}
+
+button .boton-plantilla {
+ 
+ background-color: #4DB6AC;
+ color: #fff;
+ border: 2px solid #fff;
+ border-radius: 10px;
+}
+
+@media only screen and (max-width:680px){
+body{
+  overflow-x: hidden;
+}
+
+.btn-ubicacion {
+  width:100%;
+  padding-top: 3%;
+}
+
+.nav-green .brand-logo {
+  margin-left: -5%;
+  font-size: 1.5em;
+}
+
 }
