@@ -25,47 +25,55 @@ var mostrarMapa = function (coordenadas) {
     });
 }
 
+var ubicacion = function(position){
+  	var latitud = $(this).data('latitud');
+		var longitud = $(this).data('longitud');
+
+		var coordenadas = {
+			lat: latitud,
+			lng: longitud
+		};
+
+		mostrarMapa(coordenadas);
+};
 
 
-var restaurantes= [{
+
+var restaurantes= [
+	{
     "nombre": "Yamasan Ramen House",
     "comida": "Japonesa",
     "foto": "https://igx.4sqi.net/img/general/200x200/25404241_8PNmeduOkJ7QojQUpsCTCaTOP0q--87Ef7XjhpxzxHQ.jpg",
     "direccion": "Calle Tamaulipas 103, Cuauhtémoc, Hipódromo, 06140 Ciudad de México, CDMX",
-    "lat": "19.4094816",
-    "lng": "-99.1750028"
+    "coordenadas": {"lat": "19.4094816", "lng": "-99.1750028"}
   },
   {
-    "nombre": "Fonda Fina",
-    "comida": "Mexicana",
-    "foto": "https://igx.4sqi.net/img/general/200x200/76294701_FMQJFOhoH_tEz8qsXeooOPAicLNH7EuJ8GWrRVtLymU.jpg",
-    "direccion": "Medellín 79, Roma Nte., 06700 Ciudad de México, CDMX",
-    "lat": "19.4176387",
-    "lng": "-99.167004"
+    "nombre": "Fishers",
+    "comida": "Marisqueria",
+    "foto": "https://igx.4sqi.net/img/general/200x200/g3BtSg12PXsfoUjm1XAg5fLU_8GcqgPEugQuPTUNVSU.jpg",
+    "direccion": "Durango 197, Cuauhtémoc, Roma Norte, Roma Nte., 06700 Ciudad de México, CDMX",
+    "coordenadas": { "lat": "19.420134", "lng": "-99.167399"}
   },
   {
     "nombre": "Los Bisquets Obregon",
     "comida": "Mexicana",
     "foto": "https://igx.4sqi.net/img/general/200x200/83944764_dqD3pXxR5BMdonvDDDgCdyWn6_sNqnNDkB4ME8Orrn8.jpg",
     "direccion": "Av. Álvaro Obregón 252, Roma Nte., 06700 Ciudad de México, CDMX",
-    "lat": "19.4176387",
-    "lng": "-99.167004"
+    "coordenadas": {  "lat": "19.416677", "lng": "-99.166744"}
   },
   {
-    "nombre": "La Botica",
-    "comida": "Mexicana",
-    "foto": "https://igx.4sqi.net/img/general/200x200/15693219_2315nUctihFzw_oQRlUAv-p6-jx68TglNgm9j0wB45g.jpg",
-    "direccion": "Av. Alfonso Reyes 120, Cuauhtemoc, Hipódromo Condesa, 06170 Ciudad de México, CDMX",
-    "lat": "19.4176387",
-    "lng": "-99.167004"
+    "nombre": "Buenos Aires",
+    "comida": "Argentina",
+    "foto": "https://igx.4sqi.net/img/general/200x200/lsEyh-40_A1hsGdF16i7jpDLNSCX81un7CNtKrruTE8.jpg",
+    "direccion": "  Direccion: Yucatán 33, Hipódromo Condesa, Cuauhtémoc, 06170 Ciudad de México, CDMX",
+    "coordenadas": {  "lat": "19.415763", "lng": "-99.166119"}
   },
   {
     "nombre": "Taqueria el Borrego Viudo",
     "comida": "Tacos",
     "foto": "https://igx.4sqi.net/img/general/200x200/45758641_AQ1byP9Ils6OnXsnd8J9gsBZ2cuffsqaR7u0ZFaCdo4.jpg",
-    "direccion": "Av. Alfonso Reyes 120, Cuauhtemoc, Hipódromo Condesa, 06170 Ciudad de México, CDMX",
-    "lat": "19.4176387",
-    "lng": "-99.167004"
+    "direccion": "Revolución, Tacubaya, Ciudad de México, CDMX",
+		"coordenadas" : {"lat": "19.399412", "lng": "-99.185153"}
   }
 
 ];
@@ -76,13 +84,16 @@ var plantillaRestaurante = '<article class="row restaurante">' +
   '<div class="col s3">' +
   '<img src="__foto__" alt="Contact" class="circle responsive-img">' +
   '</div>' +
-  '<div class="col s9">' +
+  '<div class="col s6">' +
   '<h5 class="name">__nombre__</h5>' +
   '<span class="black-text">' +
   'Comida: __comida__' + '<br>' +
   '</span>' +
   '<span>' +
-  'Direccion:__direccion__' +
+  'Direccion:__direccion__' + '</span>' + '</br>'
+	+ '<div class="col s2">' +
+	'<button type="button" class=" btn-ubicacion btn btn-primary btn-medium" data-latitud="__latitud__" data-longitud="__longitud__">Ubicacion</button>' +
+	'</div>' +
   '</div>' +
   '</div>' +
   '</div>' +
@@ -91,6 +102,7 @@ var plantillaRestaurante = '<article class="row restaurante">' +
 var cargarPagina = function() {
   $("#search-form").submit(filtrarRestaurante);
   obtenerUbicacion();
+	$(document).on("click", ".btn-ubicacion", ubicacion);
 };
 
 var filtrarRestaurante = function(e) {
@@ -103,7 +115,7 @@ var filtrarRestaurante = function(e) {
     return restaurante.comida.toLowerCase().indexOf(criterioBusqueda) >= 0;
   });
   mostrarRestaurante(restaurantesFiltrados);
-  mostrarRestaurante(restaurantesFiltradosComida);
+  // mostrarRestaurante(restaurantesFiltradosComida);
 };
 
 var mostrarRestaurante = function(restaurantes) {
@@ -112,9 +124,12 @@ var mostrarRestaurante = function(restaurantes) {
     plantillaFinal += plantillaRestaurante.replace("__nombre__", restaurante.nombre)
       .replace("__comida__", restaurante.comida)
       .replace("__foto__", restaurante.foto)
-      .replace("__direccion__", restaurante.direccion);
+      .replace("__direccion__", restaurante.direccion)
+			.replace("__latitud__", restaurante.coordenadas.lat)
+			.replace("__longitud__", restaurante.coordenadas.lng);
   });
   $(".restaurant").html(plantillaFinal);
+
 };
 
 
